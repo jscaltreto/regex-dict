@@ -84,7 +84,7 @@ const {
           rel="noopener noreferrer"
           class="underline hover:text-gray-600 dark:hover:text-gray-300"
         >an-array-of-english-words</a>
-        (MIT).
+        (MIT) — reproduced without curation; may contain offensive words.
         This project is released under the
         <a
           href="https://opensource.org/licenses/MIT"

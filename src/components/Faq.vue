@@ -14,7 +14,7 @@ const items = [
   },
   {
     q: 'How does the search work?',
-    a: 'After the word list loads, all matching happens in your browser — nothing is sent to a server. Matching runs in a background thread so the page stays responsive even against a list of 370,000+ words.',
+    a: 'After the word list loads, all matching happens in your browser — nothing is sent to a server. Matching runs in a background thread so the page stays responsive even against a list of 275,000+ words.',
   },
   {
     q: 'What does "Match whole word" do?',
@@ -22,7 +22,7 @@ const items = [
   },
   {
     q: 'Where do the words come from?',
-    a: 'The word list is the <a href="https://github.com/dwyl/english-words" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-700 dark:hover:text-gray-200">dwyl/english-words</a> corpus (~370,000 English words). It is released into the public domain under <a href="https://unlicense.org" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-700 dark:hover:text-gray-200">The Unlicense</a>.',
+    a: 'The word list is the <a href="https://github.com/words/an-array-of-english-words" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-700 dark:hover:text-gray-200">an-array-of-english-words</a> corpus (~275,000 English words), MIT licensed. The list is used as-is without curation — it may contain words some users find offensive.',
   },
   {
     q: 'Is this open source?',
