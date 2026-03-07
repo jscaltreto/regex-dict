@@ -79,12 +79,12 @@ const {
       <p>
         Word list from
         <a
-          href="https://github.com/dwyl/english-words"
+          href="https://github.com/words/an-array-of-english-words"
           target="_blank"
           rel="noopener noreferrer"
           class="underline hover:text-gray-600 dark:hover:text-gray-300"
-        >dwyl/english-words</a>
-        (public domain).
+        >an-array-of-english-words</a>
+        (MIT).
         This project is released under the
         <a
           href="https://opensource.org/licenses/MIT"

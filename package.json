@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/prepare-words.mjs",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "prepare-words": "bash scripts/prepare-words.sh"
+    "prepare-words": "node scripts/prepare-words.mjs"
   },
   "dependencies": {
     "vue": "^3.5.0"
@@ -15,6 +16,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
     "@vitejs/plugin-vue": "^5.0.0",
+    "an-array-of-english-words": "^2.0.0",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.0",
     "vite": "^6.0.0",

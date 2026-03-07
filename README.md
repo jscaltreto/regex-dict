@@ -30,7 +30,7 @@ Then open http://localhost:5173.
 
 ## Updating the Word List
 
-The compressed word list at `public/words.txt.gz` is pre-built and committed. To regenerate it from the upstream source (requires `curl` and `gzip`):
+The word list is generated at build time from the [`an-array-of-english-words`](https://github.com/words/an-array-of-english-words) npm package and is not committed to the repo. To regenerate it manually:
 
 ```bash
 npm run prepare-words
@@ -38,7 +38,7 @@ npm run prepare-words
 
 ## Attribution
 
-Word list sourced from [dwyl/english-words](https://github.com/dwyl/english-words), released under the [Unlicense](https://unlicense.org/) (public domain).
+Word list sourced from [an-array-of-english-words](https://github.com/words/an-array-of-english-words) (derived from the [Letterpress](https://github.com/lorenbrichter/Words) word list), MIT licensed.
 
 ## License
 
