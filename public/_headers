@@ -1,0 +1,37 @@
+/*
+  # Prevent MIME-type sniffing
+  X-Content-Type-Options: nosniff
+
+  # Disallow framing (clickjacking protection)
+  X-Frame-Options: DENY
+
+  # Only send origin as referrer for cross-origin requests
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Disable browser features the app never uses
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), interest-cohort=()
+
+  # Content Security Policy
+  #
+  # Script sources:
+  #   'self'          — hashed JS bundles served from the same origin
+  #   'sha256-...'    — the JSON-LD structured-data inline script in index.html
+  #
+  # Worker sources:
+  #   'self'          — the Web Worker bundle is fetched and spawned from the same origin
+  #                     (Vite emits it as a normal JS asset; the main bundle calls
+  #                     new Worker(new URL(...)) with a same-origin blob URL, so
+  #                     worker-src 'self' blob: covers both the fetch and the blob wrapper)
+  #
+  # Style sources:
+  #   'self'          — the compiled Tailwind CSS asset
+  #   'unsafe-inline' — Vue's scoped-style runtime injects tiny <style> blocks at runtime;
+  #                     Tailwind v4's Vite plugin may also inject a small inline style sheet.
+  #                     Removing this would require nonce injection wired through the build,
+  #                     which is not feasible for a fully-static site.
+  #
+  # Connect sources:
+  #   'self'          — fetch('/words.txt.gz') in useRegexSearch.ts
+  #
+  # Everything else (object, base-URI, frame-ancestors) is locked down.
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-eQSezvbf8AdacVfdSB+26PfK3NXvDZsO+uOWYmHY0QY='; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
