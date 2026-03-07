@@ -84,7 +84,7 @@ export function useRegexSearch() {
     // Validate regex on main thread for instant feedback
     try {
       const testPattern = wholeWord.value ? `^(?:${p})$` : p
-      new RegExp(testPattern)
+      new RegExp(testPattern, 'i')
       regexError.value = null
     } catch (err) {
       regexError.value = err instanceof Error ? err.message : 'Invalid regular expression'

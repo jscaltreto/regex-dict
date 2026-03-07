@@ -19,11 +19,13 @@ const {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-10">
+  <div class="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-900 px-4 py-10">
     <div class="mx-auto max-w-2xl">
       <header class="mb-8 text-center">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Regex Dictionary</h1>
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        <h1 class="font-mono text-4xl font-bold">
+          <span class="text-gray-400 dark:text-gray-500">/^</span><span class="bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent">Regex Dictionary</span><span class="text-gray-400 dark:text-gray-500">$/</span>
+        </h1>
+        <p class="mt-2 font-mono text-sm text-gray-500 dark:text-gray-400">
           Search {{ corpusSize > 0 ? corpusSize.toLocaleString() : '' }} English words with a regular expression
         </p>
       </header>

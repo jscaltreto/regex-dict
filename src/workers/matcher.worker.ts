@@ -18,7 +18,7 @@ function processSearch(pattern: string, wholeWord: boolean, id: number): void {
   let regex: RegExp
   try {
     const finalPattern = wholeWord ? `^(?:${pattern})$` : pattern
-    regex = new RegExp(finalPattern)
+    regex = new RegExp(finalPattern, 'i')
   } catch {
     postMessage({ type: 'error', message: 'Invalid regular expression', id } satisfies ErrorMessage)
     return
