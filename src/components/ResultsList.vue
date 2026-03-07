@@ -42,7 +42,7 @@ async function copyWord(word: string) {
         @click="copyWord(word)"
       >
         <span>{{ word }}</span>
-        <span class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-xs text-gray-400 dark:text-gray-500">
+        <span class="ml-2 transition-opacity text-xs text-gray-400 dark:text-gray-500 sm:opacity-0 sm:group-hover:opacity-100">
           {{ copiedWord === word ? '✓ copied' : 'copy' }}
         </span>
       </li>
