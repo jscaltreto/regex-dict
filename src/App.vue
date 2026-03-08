@@ -26,53 +26,36 @@ const {
           <span class="text-gray-400 dark:text-gray-500">/^</span><span class="bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent">Regex Dictionary</span><span class="text-gray-400 dark:text-gray-500">$/</span>
         </h1>
         <p class="mt-2 font-mono text-sm text-gray-500 dark:text-gray-400">
-          Search {{ corpusSize > 0 ? corpusSize.toLocaleString() : '' }} English words with a regular expression
+          <span v-if="isCorpusLoading">Loading dictionary…</span>
+          <span v-else>Search {{ corpusSize.toLocaleString() }} English words with a regular expression</span>
         </p>
       </header>
 
       <div
-        v-if="isCorpusLoading"
-        class="flex items-center justify-center gap-3 py-12 text-gray-500 dark:text-gray-400"
-      >
-        <svg
-          class="h-5 w-5 animate-spin"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-        </svg>
-        Loading dictionary...
-      </div>
-
-      <div
-        v-else-if="corpusError"
-        class="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-4 text-center text-red-600 dark:text-red-400"
+        v-if="corpusError"
+        class="mb-4 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-4 text-center text-red-600 dark:text-red-400"
       >
         <p class="font-medium">Failed to load dictionary</p>
         <p class="mt-1 text-sm">{{ corpusError }}</p>
       </div>
 
-      <template v-else>
-        <SearchBox
-          v-model="pattern"
-          :whole-word="wholeWord"
-          :disabled="false"
-          :is-searching="isSearching"
-          :error="regexError"
-          @update:whole-word="wholeWord = $event"
-        />
-        <ResultsList
-          :matches="matches"
-          :total-count="totalCount"
-          :has-pattern="pattern.trim().length > 0"
-        />
-        <div class="mt-10">
-          <RegexGuide />
-          <Faq />
-        </div>
-      </template>
+      <SearchBox
+        v-model="pattern"
+        :whole-word="wholeWord"
+        :disabled="!!corpusError"
+        :is-searching="isSearching"
+        :error="regexError"
+        @update:whole-word="wholeWord = $event"
+      />
+      <ResultsList
+        :matches="matches"
+        :total-count="totalCount"
+        :has-pattern="pattern.trim().length > 0"
+      />
+      <div class="mt-10">
+        <RegexGuide />
+        <Faq />
+      </div>
     </div>
 
     <footer class="mx-auto mt-12 max-w-2xl border-t border-gray-200 pb-8 pt-6 text-center text-xs text-gray-400 dark:border-gray-700 dark:text-gray-500">

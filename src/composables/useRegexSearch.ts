@@ -17,6 +17,8 @@ export function useRegexSearch() {
   const corpusError = ref<string | null>(null)
   const corpusSize = ref(0)
 
+  const isCorpusReady = ref(false)
+
   const worker = new MatcherWorker()
   let searchId = 0
   let debounceTimer: ReturnType<typeof setTimeout> | null = null
@@ -25,6 +27,7 @@ export function useRegexSearch() {
     const msg = event.data
     if (msg.type === 'ready') {
       isCorpusLoading.value = false
+      isCorpusReady.value = true
     } else if (msg.type === 'result') {
       if (msg.id === searchId) {
         matches.value = msg.matches
@@ -41,6 +44,7 @@ export function useRegexSearch() {
 
   worker.onerror = () => {
     isCorpusLoading.value = false
+    isSearching.value = false
     corpusError.value = 'Worker error occurred'
   }
 
@@ -66,6 +70,7 @@ export function useRegexSearch() {
       worker.postMessage({ type: 'init', words: wordList })
     } catch (err) {
       isCorpusLoading.value = false
+      isSearching.value = false
       corpusError.value = err instanceof Error ? err.message : 'Failed to load word list'
     }
   }
@@ -95,6 +100,7 @@ export function useRegexSearch() {
     }
 
     isSearching.value = true
+    if (!isCorpusReady.value) return
     searchId++
     worker.postMessage({ type: 'search', pattern: p, wholeWord: wholeWord.value, id: searchId })
   }
@@ -105,6 +111,12 @@ export function useRegexSearch() {
   }
 
   watch([pattern, wholeWord], scheduleSearch)
+  watch(isCorpusReady, (ready) => {
+    if (ready && pattern.value.trim()) {
+      if (debounceTimer !== null) clearTimeout(debounceTimer)
+      runSearch()
+    }
+  })
 
   onUnmounted(() => {
     worker.terminate()
