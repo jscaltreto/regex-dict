@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, watch, onUnmounted } from 'vue'
 import { useRegexSearch } from './composables/useRegexSearch'
 import SearchBox from './components/SearchBox.vue'
 import ResultsList from './components/ResultsList.vue'
@@ -16,6 +17,38 @@ const {
   corpusError,
   corpusSize,
 } = useRegexSearch()
+
+// Animated word count ticker — cycles random numbers while loading,
+// then settles to the real count over a brief animation.
+const displayCount = ref(Math.floor(Math.random() * 150_000 + 200_000))
+let tickerInterval: ReturnType<typeof setInterval> | null = null
+
+tickerInterval = setInterval(() => {
+  displayCount.value = Math.floor(Math.random() * 150_000 + 200_000)
+}, 50)
+
+watch(corpusSize, (real) => {
+  if (real <= 0) return
+  if (tickerInterval !== null) { clearInterval(tickerInterval); tickerInterval = null }
+
+  const steps = 15
+  const duration = 600
+  let step = 0
+
+  const settle = setInterval(() => {
+    step++
+    const t = step / steps
+    // Narrow the random range toward the real value
+    const spread = Math.round((1 - t * t) * 50_000)
+    displayCount.value = real + Math.round((Math.random() - 0.5) * spread)
+    if (step >= steps) {
+      clearInterval(settle)
+      displayCount.value = real
+    }
+  }, duration / steps)
+})
+
+onUnmounted(() => { if (tickerInterval !== null) clearInterval(tickerInterval) })
 </script>
 
 <template>
@@ -26,8 +59,7 @@ const {
           <span class="text-gray-400 dark:text-gray-500">/^</span><span class="bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent">Regex Dictionary</span><span class="text-gray-400 dark:text-gray-500">$/</span>
         </h1>
         <p class="mt-2 font-mono text-sm text-gray-500 dark:text-gray-400">
-          <span v-if="isCorpusLoading">Loading dictionary…</span>
-          <span v-else>Search {{ corpusSize.toLocaleString() }} English words with a regular expression</span>
+          Search {{ displayCount.toLocaleString() }} English words with a regular expression
         </p>
       </header>
 
