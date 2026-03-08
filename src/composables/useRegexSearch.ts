@@ -1,5 +1,6 @@
 import { ref, watch, onUnmounted } from 'vue'
 import MatcherWorker from '../workers/matcher.worker.ts?worker'
+import wordsManifest from '../words-manifest.json'
 
 type WorkerResultMessage = { type: 'result'; matches: string[]; total: number; id: number }
 type WorkerErrorMessage = { type: 'error'; message: string; id: number }
@@ -50,7 +51,7 @@ export function useRegexSearch() {
 
   async function loadCorpus(): Promise<void> {
     try {
-      const response = await fetch('/words.txt.gz')
+      const response = await fetch(wordsManifest.file)
       if (!response.ok) throw new Error(`Failed to fetch word list: ${response.status}`)
       if (!response.body) throw new Error('No response body')
 
