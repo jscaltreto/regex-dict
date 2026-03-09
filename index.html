@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Regex Dictionary — Search 275,000+ English Words with Regular Expressions</title>
-    <meta name="description" content="Search a dictionary of 275,000+ English words using regular expressions. Instant client-side regex word search — no server, works offline. Great for word games, puzzles, and linguistics." />
+    <meta name="description" content="Regex Dictionary: search 275,000+ English words with regular expressions. Free online regex word search tool — great for crosswords, word games, Scrabble, and linguistics." />
 
     <!-- Canonical -->
     <link rel="canonical" href="https://regexdict.com" />
@@ -15,13 +15,13 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://regexdict.com" />
     <meta property="og:title" content="Regex Dictionary — Search 275,000+ English Words with Regular Expressions" />
-    <meta property="og:description" content="Search a dictionary of 275,000+ English words using regular expressions. Instant client-side regex word search — no server, works offline." />
+    <meta property="og:description" content="Regex Dictionary: search 275,000+ English words with regular expressions. Free online regex word search tool — great for crosswords, word games, and linguistics." />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:url" content="https://regexdict.com" />
     <meta name="twitter:title" content="Regex Dictionary — Search 275,000+ English Words with Regular Expressions" />
-    <meta name="twitter:description" content="Search a dictionary of 275,000+ English words using regular expressions. Instant client-side regex word search — no server, works offline." />
+    <meta name="twitter:description" content="Regex Dictionary: search 275,000+ English words with regular expressions. Free online regex word search tool — great for crosswords, word games, and linguistics." />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -48,9 +48,56 @@
       ]
     }
     </script>
+
+    <!-- FAQ Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a regex dictionary?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A regex dictionary lets you search a word list using regular expressions (regex) — patterns that describe the shape of words rather than exact matches. For example, you can find all five-letter words ending in 'tion' or words with three consecutive vowels."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a regular expression (regex)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A regular expression is a pattern used to match text. Instead of searching for a fixed word, you describe the shape of what you're looking for — for example, .{5} matches any five-letter word, and [aeiou]{3} matches any three consecutive vowels."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the regex dictionary search work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "After the word list loads, all matching happens in your browser — nothing is sent to a server. Matching runs in a background thread so the page stays responsive even against a list of 275,000+ words."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this regex dictionary work offline?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Once the page and word list have loaded, the search works entirely offline. There is no server communication during use."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="app"></div>
+    <noscript>
+      <h1>Regex Dictionary</h1>
+      <p>Search 275,000+ English words with a regular expression. This free online regex dictionary lets you find words matching any pattern — perfect for crosswords, Scrabble, word games, puzzles, and linguistics research.</p>
+      <p>This tool requires JavaScript to run. Please enable JavaScript in your browser.</p>
+    </noscript>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

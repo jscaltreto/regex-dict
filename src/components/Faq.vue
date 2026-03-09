@@ -9,6 +9,10 @@ function toggle(i: number) {
 
 const items = [
   {
+    q: 'What is a regex dictionary?',
+    a: 'A regex dictionary lets you search a word list using regular expressions (regex) — patterns that describe the <em>shape</em> of words rather than exact matches. For example, you can find all five-letter words ending in "tion", words with three consecutive vowels, or words that start and end with the same letter. It\'s useful for crosswords, Scrabble, word games, and linguistics.',
+  },
+  {
     q: 'What is a regular expression (regex)?',
     a: 'A regular expression is a pattern used to match text. Instead of searching for a fixed word, you describe the shape of what you\'re looking for — for example, <code>.{5}</code> matches any five-letter word, and <code>[aeiou]{3}</code> matches any three consecutive vowels. The quick reference above covers the most useful patterns.',
   },

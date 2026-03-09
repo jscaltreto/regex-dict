@@ -63,7 +63,7 @@ const sections: Section[] = [
       class="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
       @click="open = !open"
     >
-      <span>Regex quick reference</span>
+      <h2 class="text-sm font-medium">Regex quick reference</h2>
       <svg
         class="h-4 w-4 shrink-0 transition-transform"
         :class="{ 'rotate-180': open }"
