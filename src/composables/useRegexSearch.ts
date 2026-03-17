@@ -1,10 +1,9 @@
 import { ref, watch, onUnmounted } from 'vue'
 import MatcherWorker from '../workers/matcher.worker.ts?worker'
-import wordsManifest from '../words-manifest.json'
 
 type WorkerResultMessage = { type: 'result'; matches: string[]; total: number; id: number }
 type WorkerErrorMessage = { type: 'error'; message: string; id: number }
-type WorkerReadyMessage = { type: 'ready' }
+type WorkerReadyMessage = { type: 'ready'; count: number }
 type WorkerResponse = WorkerResultMessage | WorkerErrorMessage | WorkerReadyMessage
 
 export function useRegexSearch() {
@@ -27,6 +26,7 @@ export function useRegexSearch() {
   worker.onmessage = (event: MessageEvent<WorkerResponse>) => {
     const msg = event.data
     if (msg.type === 'ready') {
+      corpusSize.value = msg.count
       isCorpusLoading.value = false
       isCorpusReady.value = true
     } else if (msg.type === 'result') {
@@ -47,33 +47,6 @@ export function useRegexSearch() {
     isCorpusLoading.value = false
     isSearching.value = false
     corpusError.value = 'Worker error occurred'
-  }
-
-  async function loadCorpus(): Promise<void> {
-    try {
-      const response = await fetch(wordsManifest.file)
-      if (!response.ok) throw new Error(`Failed to fetch word list: ${response.status}`)
-      if (!response.body) throw new Error('No response body')
-
-      // If the server set Content-Encoding: gzip, the browser already decompressed
-      // the response transparently. Otherwise we decompress manually.
-      let text: string
-      if (response.headers.get('Content-Encoding') === 'gzip') {
-        text = await response.text()
-      } else {
-        const ds = new DecompressionStream('gzip')
-        const decompressedStream = response.body.pipeThrough(ds)
-        text = await new Response(decompressedStream).text()
-      }
-      const wordList = text.split(/\r?\n/).filter(Boolean)
-
-      corpusSize.value = wordList.length
-      worker.postMessage({ type: 'init', words: wordList })
-    } catch (err) {
-      isCorpusLoading.value = false
-      isSearching.value = false
-      corpusError.value = err instanceof Error ? err.message : 'Failed to load word list'
-    }
   }
 
   function runSearch(): void {
@@ -123,8 +96,6 @@ export function useRegexSearch() {
     worker.terminate()
     if (debounceTimer !== null) clearTimeout(debounceTimer)
   })
-
-  loadCorpus()
 
   return {
     pattern,

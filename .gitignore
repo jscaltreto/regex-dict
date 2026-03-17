@@ -3,5 +3,3 @@ dist/
 .DS_Store
 public/words.txt
 public/words.txt.gz
-public/words.*.txt.gz
-src/words-manifest.json

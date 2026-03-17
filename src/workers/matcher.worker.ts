@@ -1,6 +1,6 @@
-type InitMessage = { type: 'init'; words: string[] }
+import wordList from 'an-array-of-english-words' with { type: 'json' }
+
 type SearchMessage = { type: 'search'; pattern: string; wholeWord: boolean; id: number }
-type WorkerMessage = InitMessage | SearchMessage
 
 type ResultMessage = { type: 'result'; matches: string[]; total: number; id: number }
 type ErrorMessage = { type: 'error'; message: string; id: number }
@@ -11,8 +11,10 @@ const CHUNK_SIZE = 50_000
 // Catastrophically backtracking regexes (ReDoS) will be cut off at this limit.
 const SEARCH_TIMEOUT_MS = 5_000
 
-let words: string[] = []
+const words: string[] = [...new Set(wordList as string[])].sort()
 let currentId = -1
+
+postMessage({ type: 'ready', count: words.length })
 
 function processSearch(pattern: string, wholeWord: boolean, id: number): void {
   let regex: RegExp
@@ -57,12 +59,9 @@ function processSearch(pattern: string, wholeWord: boolean, id: number): void {
   chunk()
 }
 
-self.onmessage = (event: MessageEvent<WorkerMessage>) => {
+self.onmessage = (event: MessageEvent<SearchMessage>) => {
   const msg = event.data
-  if (msg.type === 'init') {
-    words = msg.words
-    postMessage({ type: 'ready' })
-  } else if (msg.type === 'search') {
+  if (msg.type === 'search') {
     currentId = msg.id
     processSearch(msg.pattern, msg.wholeWord, msg.id)
   }

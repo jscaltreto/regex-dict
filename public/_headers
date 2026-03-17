@@ -31,7 +31,8 @@
   #                     which is not feasible for a fully-static site.
   #
   # Connect sources:
-  #   'self'          — fetch('/words.txt.gz') in useRegexSearch.ts
+  #   'self'          — the word list is bundled into the worker, but keep
+  #                     'self' for any future same-origin fetches
   #
   # Everything else (object, base-URI, frame-ancestors) is locked down.
   Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-eQSezvbf8AdacVfdSB+26PfK3NXvDZsO+uOWYmHY0QY='; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
