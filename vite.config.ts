@@ -32,8 +32,7 @@ function siteMetaPlugin() {
         '@type': 'WebApplication',
         name: site.name,
         url: site.url,
-        description:
-          'Search a dictionary of 275,000+ English words using regular expressions. Runs entirely in the browser via a Web Worker — no server, no data sent anywhere.',
+        description: site.description,
         applicationCategory: 'UtilitiesApplication',
         operatingSystem: 'Any',
         browserRequirements: 'Requires a modern browser with JavaScript enabled',
